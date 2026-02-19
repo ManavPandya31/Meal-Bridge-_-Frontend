@@ -1,6 +1,0 @@
-[build]
-  publish = "dist"
-  command = "npm run build"
-
-[build.environment]
-  VITE_API_url = "https://mealbridge-ba47.onrender.com"
