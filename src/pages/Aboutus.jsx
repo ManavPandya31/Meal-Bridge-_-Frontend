@@ -1,8 +1,10 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 const User = JSON.parse(localStorage.getItem("User"));
 
 export default function AboutUs() {
+  
   return (
     <section className="bg-[#FAEBD7] py-12 px-6 md:px-12 lg:px-20">
       <div className="max-w-6xl mx-auto text-center md:text-left">

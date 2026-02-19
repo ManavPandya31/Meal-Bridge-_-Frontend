@@ -1,3 +1,4 @@
+import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -6,6 +7,7 @@ import { Link } from "react-router-dom";
 
 
 export default function Login() {
+
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,9 +33,11 @@ export default function Login() {
         const user = response.data.user;
         localStorage.setItem("User", JSON.stringify(user));
         navigate("/");
+
       } else {
         alert("❌ Login Failed: " + (response.data.message));
       }
+
     } catch (error) {
       console.error("Login Error:", error);
       const backendMessage =
@@ -41,10 +45,12 @@ export default function Login() {
 
       if (backendMessage.includes("not approved")) {
         alert("⚠️ Your NGO account is pending admin approval. Please wait.");
+
       } else {
         alert("❌ " + backendMessage);
       }
-    } finally {
+  
+      } finally {
       setLoading(false); // Hide loader
     }
   };

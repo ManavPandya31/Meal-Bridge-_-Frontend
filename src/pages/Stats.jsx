@@ -1,7 +1,9 @@
+import React from "react";
 import CountUp from "react-countup";
 import { motion } from "framer-motion";
 
 const Stats = () => {
+
   const stats = [
     { value: 3000, suffix: "+", label: "Donors" },
     { value: 650, suffix: "+", label: "NGOs" },

@@ -1,10 +1,11 @@
+import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-
 const NGOApprovalPanel = () => {
+
     const [unapprovedNgos, setUnapprovedNgos] = useState([]);
     const [approvedNgos, setApprovedNgos] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -13,23 +14,27 @@ const NGOApprovalPanel = () => {
     const fetchNgos = async () => {
         try {
             const res = await axios.get(`${import.meta.env.VITE_API_url}/api/users/get`);
-            const allNgos = res.data.filter(user => user.role === "ngo");
 
+            const allNgos = res.data.filter(user => user.role === "ngo");
             setUnapprovedNgos(allNgos.filter(ngo => !ngo.isApproved));
             setApprovedNgos(allNgos.filter(ngo => ngo.isApproved));
             setLoading(false);
+
         } catch (err) {
             console.error("Error fetching NGOs", err);
         }
     };
 
     const approveNgo = async (id) => {
+
         try {
             setIsProcessing(true);
-            await axios.put(`${import.meta.env.VITE_API_url}/api/users/approved/${id}`);
-            toast.success("✅ NGO Approved");
 
+            const res = await axios.put(`${import.meta.env.VITE_API_url}/api/users/approved/${id}`);
+            
+            toast.success("✅ NGO Approved");
             fetchNgos();
+
         } catch (err) {
             console.error("Error approving NGO:", err);
             toast.error("❌ Error approving NGO");
@@ -40,31 +45,40 @@ const NGOApprovalPanel = () => {
     };
 
     const disapproveNgo = async (id) => {
+
         try {
             setIsProcessing(true);
-            await axios.put(`${import.meta.env.VITE_API_url}/api/users/unapprove/${id}`);
+            const res = await axios.put(`${import.meta.env.VITE_API_url}/api/users/unapprove/${id}`);
+            
             toast.success("🚫 NGO Disapproved");
             fetchNgos();
+
         } catch (err) {
             console.error("Error disapproving NGO:", err);
             toast.error("❌ Error disapproving NGO");
+
         } finally {
             setIsProcessing(false);
         }
     };
 
     const deleteNgo = async (id) => {
+
         const confirmDelete = window.confirm("Are you sure you want to completely delete this NGO?");
+        
         if (!confirmDelete) return;
 
         try {
             setIsProcessing(true);
-            await axios.delete(`${import.meta.env.VITE_API_url}/api/users/remove/${id}`);
+            const res = await axios.delete(`${import.meta.env.VITE_API_url}/api/users/remove/${id}`);
+           
             toast.success("🗑️ NGO Deleted");
             fetchNgos();
+
         } catch (err) {
             console.error("Error deleting NGO:", err);
             toast.error("❌ Error deleting NGO");
+
         } finally {
             setIsProcessing(false);
         }

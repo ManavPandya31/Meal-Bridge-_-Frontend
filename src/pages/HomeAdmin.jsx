@@ -1,8 +1,9 @@
+import React from "react";
 import Stats from "./Stats";
 import { Link } from "react-router-dom";
 
-
 const HomeDoner = () => {
+
   return (
     <>
       <section
@@ -27,7 +28,5 @@ const HomeDoner = () => {
     </>
   );
 };
-
-
 
 export default HomeDoner;

@@ -1,8 +1,9 @@
+import React from "react";
 import Stats from "./Stats";
 import { Link } from "react-router-dom";
 
-
 const HomeNGOs = () => {
+
     return (
         <>
             <section
@@ -27,7 +28,5 @@ const HomeNGOs = () => {
         </>
     );
 };
-
-
 
 export default HomeNGOs;

@@ -1,3 +1,4 @@
+import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -6,16 +7,7 @@ import LoadingOverlay from "./loading";
 
 export default function Signup() {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    password: "",
-    organizationName: "",
-    registrationNumber: "",
-    role: "donor"
-  });
-
+  const [formData, setFormData] = useState({name: "",email: "",phone: "",password: "",organizationName: "",registrationNumber: "",role: "donor"});
   const [loading, setLoading] = useState(false); // ✅ loader state
 
   const handleChange = (e) => {
@@ -24,17 +16,22 @@ export default function Signup() {
   };
 
   const handleSignup = async (e) => {
+
     e.preventDefault();
     setLoading(true); // ✅ show loader
+
     try {
       const response = await axios.post(`${import.meta.env.VITE_API_url}/api/users/register`, formData);
-      console.log("response", response);
+      //console.log("response", response);
+
       if (response.data.status === "success") {
         alert("✅ Signup successful!");
         navigate("/login");
+
       } else {
         alert("❌ " + response.data.message);
       }
+
     } catch (error) {
       console.error("Signup Error:", error);
       const backendMessage =
@@ -42,6 +39,7 @@ export default function Signup() {
         error.response?.data?.error ||
         "❌ Something went wrong during signup.";
       alert(backendMessage);
+      
     } finally {
       setLoading(false); // ✅ hide loader
     }
