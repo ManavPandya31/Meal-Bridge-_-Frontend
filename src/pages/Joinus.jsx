@@ -1,15 +1,12 @@
+import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const JoinUs = () => {
+
     const navigate = useNavigate();
-    const [formData, setFormData] = useState({
-        name: '',
-        contact: '',
-        email: '',
-        education: '',
-        resume: null,
-    });
+    
+    const [formData, setFormData] = useState({name: '',contact: '',email: '',education: '',resume: null,});
 
     const handleChange = (e) => {
         const { name, value, files } = e.target;

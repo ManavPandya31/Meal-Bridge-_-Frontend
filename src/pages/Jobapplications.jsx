@@ -1,15 +1,19 @@
+import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
 const Jobapplications = () => {
+
     const [submissions, setSubmissions] = useState([]);
     const [loading, setLoading] = useState(true);
 
     const fetchData = async () => {
+        
         try {
             const res = await axios.get(`${import.meta.env.VITE_API_url}/api/join`);
             setSubmissions(res.data.reverse());
             setLoading(false);
+
         } catch (error) {
             console.error("Failed to fetch join us data", error);
         }

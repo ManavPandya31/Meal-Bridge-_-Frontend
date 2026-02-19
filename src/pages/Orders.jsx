@@ -1,3 +1,4 @@
+import React from 'react';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
@@ -6,38 +7,43 @@ const Orders = () => {
   const [donations, setDonations] = useState([]);
   const ngoName = "Helping Hands";
   const [loading, setLoading] = useState(false);
-
+  const [history, setHistory] = useState([]);
 
   useEffect(() => {
     fetchDonations();
     fetchHistory();
   }, []);
 
-
   const fetchDonations = async () => {
+
     setLoading(true);
+    
     try {
       const res = await axios.get(`${import.meta.env.VITE_API_url}/api/Doner/available`);
-      console.log("Donor Avalable api response",res);
+      //console.log("Donor Avalable api response",res);
       setDonations(Array.isArray(res.data) ? res.data : []);
+
     } catch (err) {
       console.error("Error fetching donations:", err);
+
     } finally {
       setLoading(false);
     }
   };
 
-  const [history, setHistory] = useState([]);
-
   const fetchHistory = async () => {
+
     setLoading(true);
+
     try {
       const res = await axios.get(`${import.meta.env.VITE_API_url}/api/Doner/history/${ngoName}`);
-      console.log("History Log :- ",res);
+      //console.log("History Log :- ",res);
 
       setHistory(Array.isArray(res.data) ? res.data : []);
+
     } catch (err) {
       console.error("Error fetching history:", err);
+
     } finally {
       setLoading(false);
     }
@@ -45,22 +51,24 @@ const Orders = () => {
 
 
   const acceptOrder = async (id) => {
+
     setLoading(true);
+
     try {
       const res = await axios.post(`${import.meta.env.VITE_API_url}/api/Doner/accept/${id}`, { ngoName });
-      console.log("Accepect Orders API :- ",res);
+      //console.log("Accepect Orders API :- ",res);
       
       fetchDonations();
       fetchHistory();
 
     } catch (err) {
       alert(err.response?.data?.message || "Error accepting order");
+
     } finally {
       setLoading(false);
     }
 
   };
-
 
   return (
     <div className="min-h-screen bg-[#FAEBD7] p-4 sm:p-6 overflow-x-hidden">
@@ -188,4 +196,3 @@ const Orders = () => {
 };
 
 export default Orders;
-

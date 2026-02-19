@@ -1,11 +1,11 @@
+import React from "react";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
-
-
 export default function DonateFood() {
+
   const navigate = useNavigate();
   const [foodItems, setFoodItems] = useState([{ type: "", quantity: "", image: null }]);
   const [locationLink, setLocationLink] = useState("");
@@ -61,7 +61,8 @@ export default function DonateFood() {
 
 
       const res = await axios.post(`${import.meta.env.VITE_API_url}/api/Doner/addFoodDonate`, submissionData);
-      console.log(res)
+      //console.log(res)
+
       if (res.data.status === "success") {
         alert("Donation successful!");
         setFormData({ donorName: "", phone: "" });
@@ -69,19 +70,19 @@ export default function DonateFood() {
         setManualAddress("");
         setLocationLink("");
         navigate("/");
+
       } else {
         alert(res.data.message || "Something went wrong.");
       }
+
     } catch (error) {
       console.error("Donation Data Error:", error);
       alert("Error while sending Donation, please try again.");
+
     } finally {
       setLoading(false);
     }
   };
-
-
-
 
   const addFoodItem = () => {
     setFoodItems([...foodItems, { foodType: "", people: "", image: "" }]);
@@ -105,6 +106,7 @@ export default function DonateFood() {
   };
 
   function getLocation() {
+
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -138,13 +140,7 @@ export default function DonateFood() {
     setLocationLink("");
   };
 
-
-
-
-
   return (
-
-
     <section className="w-full bg-[#FAEBD7] py-12 px-6 md:px-12 lg:px-20">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">Donate Food</h2>

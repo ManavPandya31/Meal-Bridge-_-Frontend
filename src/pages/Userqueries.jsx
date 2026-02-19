@@ -1,19 +1,22 @@
+import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
 const UserQueries = () => {
+
   const [queries, setQueries] = useState([]);
   const [loading, setLoading] = useState(true);
   const [replyText, setReplyText] = useState({});
   const [emailLoading, setEmailLoading] = useState(false);
 
-
   useEffect(() => {
     const fetchQueries = async () => {
       try {
         const res = await axios.get(`${import.meta.env.VITE_API_url}/api/query/query`);
+        
         setQueries(res.data);
         setLoading(false);
+
       } catch (err) {
         console.error("Error fetching queries:", err);
         setLoading(false);
@@ -62,9 +65,7 @@ const UserQueries = () => {
     }
   };
   
-
   return (
-
 
     <div className="min-h-screen bg-[#FAEBD7] p-6 flex justify-center">
       {emailLoading && (

@@ -1,6 +1,8 @@
+import React from "react";
 import Story from "./Story";
 
 export default function OurWork() {
+  
   return (
     <>
       <section className="bg-[#FAEBD7] py-12 px-6 md:px-12 lg:px-20">
